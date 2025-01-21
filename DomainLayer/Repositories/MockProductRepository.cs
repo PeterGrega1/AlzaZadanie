@@ -21,6 +21,14 @@ public class MockProductRepository : IProductRepository
             });
         }
     }
+    public void SetProductList(IEnumerable<ProductModelDbo> products)
+    {
+        _products.Clear();  // Optionally clear existing products
+        foreach (var product in products)
+        {
+            _products[product.Id] = product;
+        }
+    }
 
     public Task<IEnumerable<ProductModelDbo>> GetAllAsync()
     {
