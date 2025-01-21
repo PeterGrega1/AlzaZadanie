@@ -2,10 +2,6 @@ using ApplicationLayer.ModelsDto;
 using ApplicationLayer.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PresentationLayer.Controllers
 {
@@ -31,13 +27,13 @@ namespace PresentationLayer.Controllers
         {
             try
             {
-                _logger.LogInformation("Fetching all products (v1).");
-                var products = await _mediator.Send(new GetProductsQueryV1()); // Send query using MediatR
+                _logger.LogInformation("Fetching all products.");
+                var products = await _mediator.Send(new GetProductsQueryV1());
                 return Ok(products);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error fetching products (v1).");
+                _logger.LogError(ex, "Error fetching products.");
                 return StatusCode(500, "An unexpected error occurred.");
             }
         }
@@ -49,33 +45,52 @@ namespace PresentationLayer.Controllers
         {
             try
             {
-                _logger.LogInformation("Fetching paginated products (v2).");
+                _logger.LogInformation("Fetching paginated products.");
                 var products = await _mediator.Send(new GetProductsQueryV2(pageNumber, pageSize));
                 return Ok(products);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error fetching products (v2).");
+                _logger.LogError(ex, "Error fetching products.");
                 return StatusCode(500, "An unexpected error occurred.");
             }
         }
 
-        // Uncomment and fix this endpoint if you want to fetch a product by ID (version 2 example)
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetProductById(int id)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation("Fetching product by ID (v2).");
-        //        var query = new GetProductQuery(id);
-        //        var product = await _mediator.Send(query); // Send the query using MediatR
-        //        return Ok(product);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(ex, "Error fetching product by ID (v2).");
-        //        return StatusCode(500, "An unexpected error occurred.");
-        //    }
-        //}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProductById(int id)
+        {
+            try
+            {
+                _logger.LogInformation("Fetching product by ID.");
+                var product = await _mediator.Send(new GetProductQuery(id));
+                return Ok(product);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching product by ID.");
+                return StatusCode(500, "An unexpected error occurred.");
+            }
+        }
+
+        [HttpPut("{data}")]
+        public async Task<IActionResult> UpdateProduct([FromBody] UpdateModelDto updateDescrition)
+        {
+            try
+            {
+                if (updateDescrition.Id <= 0)
+                {
+                    return BadRequest("Invalid product ID.");
+                }
+                _logger.LogInformation("Udpating product");
+
+                var product = await _mediator.Send(new UpdateProductQuery(updateDescrition));
+                return Ok(product);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching product by ID.");
+                return StatusCode(500, "An unexpected error occurred.");
+            }
+        }
     }
 }
