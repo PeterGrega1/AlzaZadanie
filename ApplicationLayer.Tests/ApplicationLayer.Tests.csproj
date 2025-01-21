@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ApplicationLayer\ApplicationLayer.csproj" />
-    <ProjectReference Include="..\DomainLayer\DataLayer.csproj" />
   </ItemGroup>
 
   <ItemGroup>
