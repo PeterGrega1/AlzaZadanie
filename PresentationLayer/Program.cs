@@ -13,7 +13,10 @@ builder.Services.AddLogging();
 
 // Register services for Application and Data layers
 builder.Services.AddApplicationLayer();
-builder.Services.AddDataLayer(builder.Configuration.GetConnectionString("DefaultConnection"));
+var useMockData = builder.Configuration.GetValue<bool>("UseMockData");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDataLayer(connectionString, useMockData);
 
 // API versioning
 builder.Services.AddApiVersioning(options =>
@@ -40,7 +43,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    SeedDatabaseService.SeedDatabase(services); 
+    SeedDatabaseService.SeedDatabase(services, useMockData); 
 }
 
 if (app.Environment.IsDevelopment())

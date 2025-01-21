@@ -4,9 +4,9 @@ namespace ApplicationLayer.Services
 {
     public static class SeedDatabaseService
     {
-        public static void SeedDatabase(IServiceProvider serviceProvider)
+        public static void SeedDatabase(IServiceProvider serviceProvider,bool useMockData)
         {
-            DbInitializer.Seed(serviceProvider);
+            DbInitializer.Seed(serviceProvider, useMockData);
         }
     }
 }

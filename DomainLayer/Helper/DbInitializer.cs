@@ -1,12 +1,19 @@
-﻿using DataLayer.ModelsDbo;
+﻿using DataLayer.Interfaces;
+using DataLayer.ModelsDbo;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DataLayer.Helper
 {
     public static class DbInitializer
     {
-        public static void Seed(IServiceProvider serviceProvider)
+        public static void Seed(IServiceProvider serviceProvider, bool useMockData)
         {
+            if (useMockData)
+            {
+                serviceProvider.GetRequiredService<IProductRepository>();
+                return;
+            }
+
             using var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
 
             context.Database.EnsureCreated();
