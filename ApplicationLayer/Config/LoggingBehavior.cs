@@ -3,10 +3,10 @@ using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ApplicationLayer.Interfaces
+namespace ApplicationLayer.Config
 {
     public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IRequest<TResponse> 
+        where TRequest : IRequest<TResponse>
     {
         private readonly ILogger<LoggingBehavior<TRequest, TResponse>> _logger;
 

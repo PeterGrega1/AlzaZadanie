@@ -1,38 +1,21 @@
-using ApplicationLayer.Helper;
-using ApplicationLayer.Interfaces;
-using ApplicationLayer.Queries;
-using DataLayer.Interfaces;
-using DataLayer.Repositories;
-using MediatR;
-using Microsoft.AspNetCore.Hosting;
+using ApplicationLayer.Config;
+using DataLayer.Config;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using System.Reflection;
+using ApplicationLayer.Services;  // Import the SeedDatabaseService
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 builder.Services.AddControllers();
-
-// Register memory cache
 builder.Services.AddMemoryCache();
+builder.Services.AddLogging(); // Logging service
 
-// Register MediatR
-builder.Services.AddMediatR(cfg =>
-{
-    cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
-});
-// Register pipeline behaviors for logging and caching
-builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CacheBehavior<,>));
+// Register services for Application and Data layers
+builder.Services.AddApplicationLayer();
+builder.Services.AddDataLayer(builder.Configuration.GetConnectionString("DefaultConnection"));
 
-// Register repositories and interfaces
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-
-// Add logging service
-builder.Services.AddLogging();  // Make sure logging service is available for dependency injection
-
-// Add API versioning configuration
+// API versioning
 builder.Services.AddApiVersioning(options =>
 {
     options.DefaultApiVersion = new ApiVersion(1, 0);
@@ -40,18 +23,25 @@ builder.Services.AddApiVersioning(options =>
     options.ReportApiVersions = true;
 });
 
-// Add versioned API explorer for Swagger support
+// Versioned API explorer for Swagger
 builder.Services.AddVersionedApiExplorer(options =>
 {
     options.GroupNameFormat = "'v'VVV";
     options.SubstituteApiVersionInUrl = true;
 });
 
-// Register Swagger generator
+// Add Swagger
 builder.Services.AddSwaggerGen();
 
 // Build the app
 var app = builder.Build();
+
+// Seed the database if needed (after the app is built)
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    SeedDatabaseService.SeedDatabase(services);  // Call the seed method
+}
 
 if (app.Environment.IsDevelopment())
 {
@@ -59,7 +49,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(options =>
     {
         var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
-
         foreach (var description in provider.ApiVersionDescriptions)
         {
             options.SwaggerEndpoint(
