@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationLayer", "PresentationLayer\PresentationLayer.csproj", "{00C2C2D3-35D7-4B36-86F4-D7285E90C401}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationLayer", "PresentationLayer\PresentationLayer.csproj", "{00C2C2D3-35D7-4B36-86F4-D7285E90C401}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationLayer", "ApplicationLayer\ApplicationLayer.csproj", "{9B78A2D5-5B9D-4630-89DE-EE7E2D9C1A50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationLayer", "ApplicationLayer\ApplicationLayer.csproj", "{9B78A2D5-5B9D-4630-89DE-EE7E2D9C1A50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DomainLayer\DataLayer.csproj", "{A6580502-2D18-4D9A-854F-5D1A2DE08115}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationLayer.Tests", "ApplicationLayer.Tests\ApplicationLayer.Tests.csproj", "{5CE1CB0E-87E1-4303-B6E0-07486E4798FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationLayer.Tests", "ApplicationLayer.Tests\ApplicationLayer.Tests.csproj", "{5CE1CB0E-87E1-4303-B6E0-07486E4798FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer.Tests", "DataLayer.Tests\DataLayer.Tests.csproj", "{9C1107BD-DBF3-4705-9EAD-0F40836C9B14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer.Tests", "DataLayer.Tests\DataLayer.Tests.csproj", "{9C1107BD-DBF3-4705-9EAD-0F40836C9B14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationLayer.Tests", "PresentationLayer.Tests\PresentationLayer.Tests.csproj", "{57A79BE6-05C7-47C9-949B-7C8FE9B3AA6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationLayer.Tests", "PresentationLayer.Tests\PresentationLayer.Tests.csproj", "{57A79BE6-05C7-47C9-949B-7C8FE9B3AA6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer", "DataLayer\DataLayer.csproj", "{7CF5AB0B-2F03-4FC2-BD32-6A4411F795B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,6 @@ Global
 		{9B78A2D5-5B9D-4630-89DE-EE7E2D9C1A50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B78A2D5-5B9D-4630-89DE-EE7E2D9C1A50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B78A2D5-5B9D-4630-89DE-EE7E2D9C1A50}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A6580502-2D18-4D9A-854F-5D1A2DE08115}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6580502-2D18-4D9A-854F-5D1A2DE08115}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6580502-2D18-4D9A-854F-5D1A2DE08115}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6580502-2D18-4D9A-854F-5D1A2DE08115}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5CE1CB0E-87E1-4303-B6E0-07486E4798FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5CE1CB0E-87E1-4303-B6E0-07486E4798FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CE1CB0E-87E1-4303-B6E0-07486E4798FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{57A79BE6-05C7-47C9-949B-7C8FE9B3AA6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57A79BE6-05C7-47C9-949B-7C8FE9B3AA6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57A79BE6-05C7-47C9-949B-7C8FE9B3AA6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CF5AB0B-2F03-4FC2-BD32-6A4411F795B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CF5AB0B-2F03-4FC2-BD32-6A4411F795B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CF5AB0B-2F03-4FC2-BD32-6A4411F795B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CF5AB0B-2F03-4FC2-BD32-6A4411F795B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

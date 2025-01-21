@@ -1,6 +1,4 @@
-using ApplicationLayer.Config;
-using DataLayer.Config;
-using Microsoft.AspNetCore.Mvc;
+using ApplicationLayer.Config;using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using ApplicationLayer.Services; 
 
@@ -12,11 +10,10 @@ builder.Services.AddMemoryCache();
 builder.Services.AddLogging(); 
 
 // Register services for Application and Data layers
-builder.Services.AddApplicationLayer();
 var useMockData = builder.Configuration.GetValue<bool>("UseMockData");
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDataLayer(connectionString, useMockData);
+builder.Services.AddApplicationLayer(connectionString, useMockData);
 
 // API versioning
 builder.Services.AddApiVersioning(options =>
