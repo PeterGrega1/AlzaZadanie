@@ -41,7 +41,7 @@ namespace PresentationLayer.Controllers
         // Version 2 endpoint with pagination 
         [HttpGet]
         [MapToApiVersion("2.0")]
-        public async Task<IActionResult> GetV2(int pageNumber, int pageSize)
+        public async Task<IActionResult> GetV2(int? pageNumber, int? pageSize)
         {
             try
             {

@@ -6,7 +6,7 @@ using AutoMapper;
 
 namespace ApplicationLayer.Queries
 {
-    public record GetProductsQueryV2(int PageNumber = 1, int PageSize = 10) : IRequest<IEnumerable<ProductModelDto>>;
+    public record GetProductsQueryV2(int? PageNumber, int? PageSize) : IRequest<IEnumerable<ProductModelDto>>;
 
     public class GetProductsQueryHandlerV2 : IRequestHandler<GetProductsQueryV2, IEnumerable<ProductModelDto>>
     {
@@ -21,7 +21,7 @@ namespace ApplicationLayer.Queries
 
         public async Task<IEnumerable<ProductModelDto>> Handle(GetProductsQueryV2 request, CancellationToken cancellationToken)
         {
-            IEnumerable<ProductModelDbo> paginatedProducts = await _productRepository.GetPaginatedAsync(request.PageNumber, request.PageSize);
+            IEnumerable<ProductModelDbo> paginatedProducts = await _productRepository.GetPaginatedAsync(request.PageNumber ?? 1, request.PageSize ?? 10);
 
             return _mapper.Map<IEnumerable<ProductModelDto>>(paginatedProducts);
         }
