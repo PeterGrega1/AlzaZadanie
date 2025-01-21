@@ -14,7 +14,6 @@ namespace ApplicationLayer.Config
             _cache = cache;
             _logger = logger;
         }
-
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             var cacheKey = request.GetHashCode().ToString();

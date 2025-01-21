@@ -2,14 +2,14 @@ using ApplicationLayer.Config;
 using DataLayer.Config;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using ApplicationLayer.Services;  // Import the SeedDatabaseService
+using ApplicationLayer.Services; 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddMemoryCache();
-builder.Services.AddLogging(); // Logging service
+builder.Services.AddLogging(); 
 
 // Register services for Application and Data layers
 builder.Services.AddApplicationLayer();
@@ -40,7 +40,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    SeedDatabaseService.SeedDatabase(services);  // Call the seed method
+    SeedDatabaseService.SeedDatabase(services); 
 }
 
 if (app.Environment.IsDevelopment())

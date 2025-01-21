@@ -1,37 +1,29 @@
 ﻿using ApplicationLayer.ModelsDto;
+using AutoMapper;
 using DataLayer.Interfaces;
+using DataLayer.ModelsDbo;
 using MediatR;
 
 
 namespace ApplicationLayer.Queries
 {
-    public record GetProductsQueryV2(int PageNumber = 1, int PageSize = 10) : IRequest<IEnumerable<ProductModelDto>>;
+    public record GetProductsQueryV1 : IRequest<IEnumerable<ProductModelDto>>;
 
-    public class GetProductsQueryHandlerV2 : IRequestHandler<GetProductsQueryV2, IEnumerable<ProductModelDto>>
+    public class GetProductsQueryHandlerV1 : IRequestHandler<GetProductsQueryV1, IEnumerable<ProductModelDto>>
     {
         private readonly IProductRepository _productRepository;
-
-        public GetProductsQueryHandlerV2(IProductRepository productRepository)
+        private readonly IMapper _mapper; 
+        public GetProductsQueryHandlerV1(IProductRepository productRepository, IMapper mapper)
         {
             _productRepository = productRepository;
+            _mapper = mapper; 
         }
 
-        public async Task<IEnumerable<ProductModelDto>> Handle(GetProductsQueryV2 request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ProductModelDto>> Handle(GetProductsQueryV1 request, CancellationToken cancellationToken)
         {
-            var products = await _productRepository.GetAllAsync();
+            IEnumerable<ProductModelDbo> products = await _productRepository.GetAllAsync();
 
-            var paginatedProducts = products
-                .Skip((request.PageNumber - 1) * request.PageSize)
-                .Take(request.PageSize);
-
-            return paginatedProducts.Select(product => new ProductModelDto
-            {
-                Id = product.Id,
-                Name = product.Name,
-                ImgUri = product.ImgUri,
-                Price = product.Price,
-                Description = product.Description
-            });
+            return _mapper.Map<IEnumerable<ProductModelDto>>(products);
         }
     }
 }

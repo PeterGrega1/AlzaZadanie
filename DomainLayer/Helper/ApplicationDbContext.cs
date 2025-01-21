@@ -22,9 +22,7 @@ namespace DataLayer.Helper
         {
             base.OnModelCreating(modelBuilder);
 
-            // Fluent API Configuration Example
-            modelBuilder.Entity<ProductModelDbo>()
-                .HasKey(p => p.Id);
+            modelBuilder.Entity<ProductModelDbo>().HasKey(p => p.Id);
         }
     }
 }

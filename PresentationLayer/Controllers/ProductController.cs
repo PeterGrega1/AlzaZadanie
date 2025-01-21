@@ -20,7 +20,7 @@ namespace PresentationLayer.Controllers
             _mediator = mediator;
         }
 
-        // Version 1 endpoint (using MediatR)
+        // Version 1 endpoint 
         [HttpGet]
         [MapToApiVersion("1.0")]
         public async Task<IActionResult> GetV1()
@@ -38,7 +38,7 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        // Version 2 endpoint with pagination (using MediatR)
+        // Version 2 endpoint with pagination 
         [HttpGet]
         [MapToApiVersion("2.0")]
         public async Task<IActionResult> GetV2(int pageNumber, int pageSize)
@@ -63,7 +63,7 @@ namespace PresentationLayer.Controllers
             {
                 _logger.LogInformation("Fetching product by ID.");
                 var product = await _mediator.Send(new GetProductQuery(id));
-                return Ok(product);
+                return product == null ? NotFound($"Product with ID {id} was not found.") : Ok(product);
             }
             catch (Exception ex)
             {

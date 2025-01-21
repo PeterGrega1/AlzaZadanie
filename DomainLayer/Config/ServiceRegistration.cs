@@ -10,11 +10,8 @@ namespace DataLayer.Config
     {
         public static IServiceCollection AddDataLayer(this IServiceCollection services, string connectionString)
         {
-            // Register DbContext
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
-            // Register repositories
             services.AddScoped<IProductRepository, ProductRepository>();
 
             return services;

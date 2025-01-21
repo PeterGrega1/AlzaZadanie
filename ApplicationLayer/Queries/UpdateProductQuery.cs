@@ -18,7 +18,7 @@ namespace ApplicationLayer.Queries
 
         public async Task<bool> Handle(UpdateProductQuery request, CancellationToken cancellationToken)
         {
-            return true;
+            return await _productRepository.UpdateDescriptionAsync(request.data.Id, request.data.Description);
         }
     }
 }
