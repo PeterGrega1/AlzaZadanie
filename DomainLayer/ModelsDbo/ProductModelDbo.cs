@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataLayer.ModelsDbo
 {
-    public class ProductModelDbo
+    public record ProductModelDbo
     {
         [Required]
         public int Id { get; set; }

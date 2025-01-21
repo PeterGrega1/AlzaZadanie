@@ -63,6 +63,7 @@ namespace PresentationLayer.Controllers
             {
                 _logger.LogInformation("Fetching product by ID.");
                 var product = await _mediator.Send(new GetProductQuery(id));
+
                 return product == null ? NotFound($"Product with ID {id} was not found.") : Ok(product);
             }
             catch (Exception ex)

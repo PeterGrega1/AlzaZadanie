@@ -2,7 +2,7 @@
 
 namespace ApplicationLayer.ModelsDto
 {
-    public class ProductModelDto
+    public record ProductModelDto
     {
         [Required]
         public int Id { get; set; }

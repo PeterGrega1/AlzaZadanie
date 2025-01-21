@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationLayer.ModelsDto
 {
-    public class UpdateModelDto
+    public record UpdateModelDto
     {
         [Required]
         public int Id { get; set; }
