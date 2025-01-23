@@ -18,6 +18,11 @@ namespace ApplicationLayer.Queries
 
         public async Task<bool> Handle(UpdateProductQuery request, CancellationToken cancellationToken)
         {
+            if (request.data.Id <= 0)
+            {
+                throw new Exception("Invalid product ID.");
+            }
+
             return await _productRepository.UpdateDescriptionAsync(request.data.Id, request.data.Description);
         }
     }

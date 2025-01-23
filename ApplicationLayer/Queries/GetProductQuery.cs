@@ -25,7 +25,7 @@ namespace ApplicationLayer.Queries
 
             if (product == null)
             {
-                return null;
+                throw new Exception($"Product with ID {request.Id} was not found.");
             }
 
             return _mapper.Map<ProductModelDto>(product);
