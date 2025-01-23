@@ -21,7 +21,7 @@ namespace ApplicationLayer.Queries
 
         public async Task<IEnumerable<ProductModelDto>> Handle(GetProductsQueryV2 request, CancellationToken cancellationToken)
         {
-            IEnumerable<ProductModelDbo> paginatedProducts = await _productRepository.GetPaginatedAsync(request.PageNumber ?? 1, request.PageSize ?? 10);
+            IEnumerable<ProductModelDbo> paginatedProducts = await _productRepository.GetPaginatedAsync(request.PageNumber ?? 1, request.PageSize ?? 10,cancellationToken);
 
             return _mapper.Map<IEnumerable<ProductModelDto>>(paginatedProducts);
         }

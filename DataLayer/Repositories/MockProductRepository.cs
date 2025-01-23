@@ -30,12 +30,12 @@ public class MockProductRepository : IProductRepository
         }
     }
 
-    public Task<IEnumerable<ProductModelDbo>> GetAllAsync()
+    public Task<IEnumerable<ProductModelDbo>> GetAllAsync(CancellationToken cancellationToken)
     {
         return Task.FromResult(_products.Values.AsEnumerable());
     }
 
-    public Task<IEnumerable<ProductModelDbo>> GetPaginatedAsync(int pageNumber, int pageSize)
+    public Task<IEnumerable<ProductModelDbo>> GetPaginatedAsync(int pageNumber, int pageSize,CancellationToken cancellationToken)
     {
         var paginated = _products.Values
             .Skip((pageNumber - 1) * pageSize)

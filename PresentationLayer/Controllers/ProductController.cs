@@ -22,26 +22,27 @@ public class ProductController : ControllerBase
     [MapToApiVersion("1.0")]
     public async Task<IActionResult> GetV1()
     {
-        _logger.LogInformation("Fetching all products.");
-        return Ok(await _mediator.Send(new GetProductsQueryV1()));
+        _logger.LogInformation("Fetching all products...");
+        return Ok(await _mediator.Send(new GetProductsQueryV1(), HttpContext.RequestAborted));
     }
+
 
     [HttpGet("GetProducts")]
     [MapToApiVersion("2.0")]
     public async Task<IActionResult> GetV2(int? pageNumber, int? pageSize)
     {
         _logger.LogInformation("Fetching paginated products.");
-        return Ok(await _mediator.Send(new GetProductsQueryV2(pageNumber, pageSize)));
+        return Ok(await _mediator.Send(new GetProductsQueryV2(pageNumber, pageSize), HttpContext.RequestAborted));
     }
 
-    [HttpGet("GetProductById/{id}")]
+    [HttpGet($"{nameof(GetProductById)}/{{id}}")]
     public async Task<IActionResult> GetProductById(int id)
     {
         _logger.LogInformation("Fetching product by ID.");
         return  Ok(await _mediator.Send(new GetProductQuery(id)));
     }
 
-    [HttpPut("UpdateProduct")]
+    [HttpPut(nameof(UpdateProduct))]
     public async Task<IActionResult> UpdateProduct(UpdateModelDto updateDescrition)
     {
         _logger.LogInformation("Updating product.");

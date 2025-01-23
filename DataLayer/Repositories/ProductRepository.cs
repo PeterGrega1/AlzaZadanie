@@ -1,4 +1,5 @@
-﻿using DataLayer.Helper;
+﻿using Azure.Core;
+using DataLayer.Helper;
 using DataLayer.Interfaces;
 using DataLayer.ModelsDbo;
 using Microsoft.EntityFrameworkCore;
@@ -14,16 +15,16 @@ namespace DataLayer.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<ProductModelDbo>> GetAllAsync()
+        public async Task<IEnumerable<ProductModelDbo>> GetAllAsync(CancellationToken cancellationToken)
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products.AsNoTracking().ToListAsync(cancellationToken);
         }
-        public async Task<IEnumerable<ProductModelDbo>> GetPaginatedAsync(int pageNumber, int pageSize)
+        public async Task<IEnumerable<ProductModelDbo>> GetPaginatedAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
         {           
             return await _context.Products
                 .Skip((pageNumber - 1) * pageSize)   
                 .Take(pageSize)                      
-                .ToListAsync();                      
+                .ToListAsync(cancellationToken);                      
         }
         public async Task<ProductModelDbo> GetByIdAsync(int id)
         {

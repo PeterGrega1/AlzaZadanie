@@ -21,7 +21,7 @@ namespace ApplicationLayer.Queries
 
         public async Task<IEnumerable<ProductModelDto>> Handle(GetProductsQueryV1 request, CancellationToken cancellationToken)
         {
-            IEnumerable<ProductModelDbo> products = await _productRepository.GetAllAsync();
+            IEnumerable<ProductModelDbo> products = await _productRepository.GetAllAsync(cancellationToken);
 
             return _mapper.Map<IEnumerable<ProductModelDto>>(products);
         }
