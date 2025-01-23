@@ -8,8 +8,8 @@ namespace ApplicationLayer.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<ProductModelDbo, ProductModelDto>();
-            CreateMap<ProductModelDto, ProductModelDbo>();
+            //CreateMap<ProductModelDbo, ProductModelDto>();
+            //CreateMap<ProductModelDto, ProductModelDbo>();
         }
     }
 }
