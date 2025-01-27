@@ -4,7 +4,6 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
-using PresentationLayer.Controllers;
 
 namespace PresentationLayer.Tests.Controllers
 {
@@ -27,7 +26,7 @@ namespace PresentationLayer.Tests.Controllers
         public async Task GetV1_ReturnsOkResultWithProducts()
         {
             // Arrange
-            var products = (await _mockRepository.GetAllAsync()).Select(p => new ProductModelDto
+            var products = (await _mockRepository.GetAllAsync(new CancellationToken())).Select(p => new ProductModelDto
             {
                 Id = p.Id,
                 Name = p.Name,
@@ -53,7 +52,8 @@ namespace PresentationLayer.Tests.Controllers
             // Arrange
             var pageNumber = 1;
             var pageSize = 10;
-            var products = (await _mockRepository.GetPaginatedAsync(pageNumber, pageSize)).Select(p => new ProductModelDto
+            CancellationToken token = new CancellationToken();
+            var products = (await _mockRepository.GetPaginatedAsync(pageNumber, pageSize, token)).Select(p => new ProductModelDto
             {
                 Id = p.Id,
                 Name = p.Name,

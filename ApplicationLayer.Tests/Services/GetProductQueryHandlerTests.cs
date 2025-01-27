@@ -65,15 +65,16 @@ namespace ApplicationLayer.Tests
         public async Task Handle_ProductDoesNotExist_ReturnsNull()
         {
             // Arrange
-            int productId = 999;  // An invalid ID that doesn't exist in the mock data
-
+            int productId = 999; // ID not present in the repository
             var query = new GetProductQuery(productId);
 
             // Act
-            var result = await _handler.Handle(query, CancellationToken.None);
+            var exception = await Assert.ThrowsAsync<Exception>(() => _handler.Handle(query, CancellationToken.None));
 
             // Assert
-            Assert.Null(result);
+            Assert.Equal($"Product with ID {productId} was not found.", exception.Message);
         }
+
+
     }
 }

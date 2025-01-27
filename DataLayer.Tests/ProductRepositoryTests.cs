@@ -1,4 +1,5 @@
 using DataLayer.Interfaces;
+using Newtonsoft.Json.Linq;
 
 namespace DataLayer.Tests
 {
@@ -17,7 +18,7 @@ namespace DataLayer.Tests
         public async Task GetAllAsync_ReturnsAllProducts()
         {
             // Act
-            var result = await _productRepository.GetAllAsync();
+            var result = await _productRepository.GetAllAsync(new CancellationToken());
 
             // Assert
             Assert.Equal(15, result.Count());  // Assuming your mock repository has 15 products
@@ -29,8 +30,8 @@ namespace DataLayer.Tests
         public async Task GetPaginatedAsync_ReturnsPaginatedProducts()
         {
             // Act
-            var resultPage1 = await _productRepository.GetPaginatedAsync(1, 5); // Page 1 with 5 products
-            var resultPage2 = await _productRepository.GetPaginatedAsync(2, 5); // Page 2 with 5 products
+            var resultPage1 = await _productRepository.GetPaginatedAsync(1, 5, new CancellationToken()); // Page 1 with 5 products
+            var resultPage2 = await _productRepository.GetPaginatedAsync(2, 5, new CancellationToken()); // Page 2 with 5 products
 
             // Assert
             Assert.Equal(5, resultPage1.Count()); // Verify correct number of products on page 1

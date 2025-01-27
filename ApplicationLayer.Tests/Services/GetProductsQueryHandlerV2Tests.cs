@@ -41,7 +41,7 @@ namespace ApplicationLayer.Tests
             };
 
             // Mock the repository and mapping
-            _mockProductRepository.Setup(repo => repo.GetPaginatedAsync(pageNumber, pageSize))
+            _mockProductRepository.Setup(repo => repo.GetPaginatedAsync(pageNumber, pageSize,new CancellationToken()))
                 .ReturnsAsync(productsDbo.Take(pageSize));  // Simulate a paginated result
             _mockMapper.Setup(m => m.Map<IEnumerable<ProductModelDto>>(It.IsAny<IEnumerable<ProductModelDbo>>()))
                        .Returns(productsDto);
@@ -64,11 +64,12 @@ namespace ApplicationLayer.Tests
             // Arrange
             int pageNumber = 3;
             int pageSize = 5;
+            CancellationToken token = new CancellationToken();
 
             var emptyProducts = new List<ProductModelDbo>();  // No products
             var productsDto = new List<ProductModelDto>();    // Empty DTO list
 
-            _mockProductRepository.Setup(repo => repo.GetPaginatedAsync(pageNumber, pageSize))
+            _mockProductRepository.Setup(repo => repo.GetPaginatedAsync(pageNumber, pageSize, token))
                 .ReturnsAsync(emptyProducts);  // Simulate no products available for the requested page
             _mockMapper.Setup(m => m.Map<IEnumerable<ProductModelDto>>(It.IsAny<IEnumerable<ProductModelDbo>>()))
                        .Returns(productsDto);
